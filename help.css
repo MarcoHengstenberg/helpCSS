@@ -153,21 +153,6 @@ input::-moz-focus-inner {
 }
 
 /*
-  Highlighting required fields in Firefox can be tinkered
-  with you know. In case you are interested...
-
-  Of course you could opt for a solid color instead of RGBA
-  values but they seem to look better in combination with
-  box-shadow.
-*/
-:not(output):-moz-ui-invalid {
-  box-shadow: values rgba(v, x, y, z);
-}
-:not(output):-moz-ui-invalid:-moz-focusring {
-  box-shadow: values rgba(v, x, y, z);
-}
-
-/*
   The shortest clearfix I could find on the web.
   No I do not support IE7 and below. They refuse to support
   my CSS so this denial goes in both directions.
@@ -295,6 +280,27 @@ a:link {
 
 /******************************/
 /* Chapter 4                  */
+/*                            */
+/* Firefox                    */
+/******************************/
+
+/*
+  Highlighting required fields in Firefox can be tinkered
+  with you know. In case you are interested...
+
+  Of course you could opt for a solid color instead of RGBA
+  values but they seem to look better in combination with
+  box-shadow.
+*/
+:not(output):-moz-ui-invalid {
+  box-shadow: values rgba(v, x, y, z);
+}
+:not(output):-moz-ui-invalid:-moz-focusring {
+  box-shadow: values rgba(v, x, y, z);
+}
+
+/******************************/
+/* Chapter 5                  */
 /*                            */
 /* Printing                   */
 /******************************/
