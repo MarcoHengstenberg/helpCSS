@@ -1,0 +1,412 @@
+/**
+ * The aim of HelpCSS is to give me hints on what I should or can do
+ * in order to improve the user experience. It also is some kind of
+ * treasure chest for me to go to whenever I want to look up nice
+ * helpers I am using more or less frequently.
+ *
+ * Open sourcing it as it might be useful for other people as well.
+ *
+ * What I left out are prefixes (mostly) when a selector can be used
+ * globally AND with a prefix. Of course you should add those
+ * yourselves or use a build-process with Autoprefixer.
+ *
+ *
+ *
+ * Author:  Marco Kunz
+ * Version: 0.1
+ *
+ */
+
+/******************************/
+/* Cross-Browser stuff        */
+/******************************/
+
+/*
+  Resetting is something we always do in order to keep a certain
+  consistency across different browsers. Of course we are also
+  taking normalization into account and everything but then again
+  Eric Meyer has his point (still).
+  http://meyerweb.com/eric/tools/css/reset/
+
+  But most of the time I see people overdoing it and just throwing
+  every HTML element they can find into the reset.
+
+  As we are throwing classes at each and every element we can find
+  recently (SMACSS, OOCSS, BEM, younameitCSS, ...) why not reset
+  only them classes and reduce the catch-time even more so. IDs are
+  faster than classes but we don't want IDs in our CSS anymore!
+  No. We. Don't. But classes are still faster than tags.
+
+  Explaining things much better than I do:
+  http://css-tricks.com/efficiently-rendering-css/
+*/
+.only, .those, .elements, .which, .you, .are,
+.really, .using, .in, .your, .project, .should, .be,
+.reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/*
+  Most of you must have heard of this but may be some
+  of you didn't. Microsoft (windows mobile) and Apple
+  (iOS) are changing the size of your text on your
+  website.
+  I can hear you asking:"Whoa, holy typography, why?"
+  but I don't have an answer, I only have a fix for you.
+*/
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/*
+  That one is entirely optional from what I can see but
+  one can never be too sure, right?
+*/
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/*
+  Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+  Yes, true that. Bolder. Thereby your strong is not only strong
+  but, yes, STRONGER!!!!
+*/
+strong {
+  font-weight: bold;
+}
+
+/*
+  I'm always doing this and you should do this, too, in order
+  to make your images a wee bit more flexible.
+
+  Oh, and we don't want borders around our images, do we?
+*/
+img {
+  border: 0;
+
+  max-width: 100%;
+}
+
+/*
+  Since figure became an element (mostly in combination with figcaption)
+  I love to use it as a container for images. Yet, what occured later on
+  was, that there is some odd behaviour around. Safari and IE8 + 9 do not
+  have a margin. Well, disputable if that's the right way to do it... but
+  you can never be too sure, so define something, anything, whatever but
+  please do it yourself before "the others" will do it for you.
+*/
+figure {
+  margin: what ever;
+}
+
+/*
+  Inputs are strange. Inputs are being taken care of. Leave your hands off
+  my inputs.
+  Yeah, true that. Most browser makers have a reason to make inputs behave.
+  Yet, sometimes some things go out of hand...
+*/
+input {
+  -webkit-appearance: none; /* you want a search icon in your search? */
+  line-height: normal; /* mandatory for a better cross-browser consistency */
+  margin: 0; /* could be taken care of in our reset */
+  border-radius: 0; /* overwriting Firefox on Android 2.3 */
+}
+
+/*
+  There are better ways to show users they are interacting with
+  or did interact with a form element than those below.
+*/
+input:hover,
+input:focus,
+input:active {
+  outline: 0;
+  box-shadow: none;
+}
+
+/*
+  Getting rid of the extra 2px padding for submit
+  buttons and inputs in Firefox 4+.
+
+  Whoever thought that was fun to implement... Òó grmlhmpfargh
+*/
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/*
+  You are able to define the way your placeholder in input
+  fields is displayed by the way.
+*/
+::placeholder {
+  text-transform: uppercase;
+
+  color: whatever;
+}
+
+/*
+  Highlighting required fields in Firefox can be tinkered
+  with you know. In case you are interested...
+
+  Of course you could opt for a solid color instead of RGBA
+  values but they seem to look better in combination with
+  box-shadow.
+*/
+:not(output):-moz-ui-invalid {
+  box-shadow: values rgba(v, x, y, z);
+}
+:not(output):-moz-ui-invalid:-moz-focusring {
+  box-shadow: values rgba(v, x, y, z);
+}
+
+/*
+  The shortest clearfix I could find on the web.
+  No I do not support IE7 and below. They refuse to support
+  my CSS so this denial goes in both directions.
+
+  ]:P
+
+*/
+.cf::before,
+.cf::after {
+  content: " ";
+  display: table;
+}
+
+.cf::after {
+  clear: both;
+}
+
+/*
+  A pixel is not a pixel is not a pixel is not a pixel.
+  If you are a fan of replacing pixel values with ems or
+  vws or rems or whatever ... keep in mind that browsers
+  are pretty bad at rounding.
+
+  If you need a one-pixel line or anything, go with .08em
+
+  Here's a test-case I created: http://codepen.io/Nice2MeatU/pen/nJial
+*/
+.one-pixel {
+  attribute: .08em;
+}
+
+/*
+  Most of the time we don't care how users interact with
+  our website. (whoever said that is in the wrong business)
+
+  Sometimes it's a good practice to let your textarea only
+  resize vertically. In order to so we only need to throw
+  the following CSS at it.
+*/
+textarea {
+  resize: vertical;
+}
+
+/*
+  May be you are into SVG. If you are in love with this wonderful
+  way of putting nice graphics and illustrations on your website
+  in a scalable and never breaking fashion, then be my guest.
+*/
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/*
+  Users are marking text, copying it and pasting it somewhere else.
+  That should not come as a surprise but you can make the experience
+  of this tedious task slightly better.
+
+  Especially getting rid of the text-shadow is very important. It
+  looks so bad with that, you would want to scratch your eyes out...
+  ok... may be not that bad but pretty bad... unpretty... yeah.
+*/
+::selection {
+  background: value;
+  color: value;
+  text-shadow: none;
+}
+
+
+/******************************/
+/* Chapter 2                  */
+/*                            */
+/* IE related stuff           */
+/******************************/
+
+/*
+  For IE10, you can use the following CSS to disable
+  double-tap-to-zoom on certain elements (like links and buttons)
+  as described in this MSDN blog post:
+
+  http://blogs.msdn.com/b/askie/archive/2013/01/06/how-to-implement-the-ms-touch-action-none-property-to-disable-double-tap-zoom-on-touch-devices.aspx
+*/
+.diable-doubletapzoom {
+  -ms-touch-action: none
+}
+
+/*
+  IE is always having a private party and YOU are not invited.
+  Yeah, well, since SNAP mode was invented for Windows 8 there
+  have been a few front end developers cursing, shouting and
+  tossing tables:
+
+  (╯°□°）╯︵ ┻━┻
+
+  Thing is... Win8s IE10 and 11 are different on a desktop computer compared
+  to what they do on a mobile device with Win8.
+*/
+@-ms-viewport {
+  width: device-width;
+}
+
+/*
+  Enabling touch for Win8 IE10 users.
+  Yes, you can and you should.
+*/
+canvas {
+  -ms-touch-action: double-tap-zoom;
+}
+
+
+/******************************/
+/* Chapter 3                  */
+/*                            */
+/* iOS related stuff          */
+/******************************/
+
+/*
+  If you want to overwrite the default tap-highlight-color
+  you can define one for your project – keep in mind to make it
+  an RGBA color with a little transparency so the text won't
+  become unreadable after the tap.
+*/
+a:link {
+  -webkit-tap-highlight-color: rgba(v, x, y, .z);
+}
+
+/******************************/
+/* Chapter 4                  */
+/*                            */
+/* Printing                   */
+/******************************/
+
+/*
+  When people want to print your site, yes they still do so
+  and show the piece of paper around – WHYever – you should
+  make their lives a bit easier.
+
+  First of all provide them with a little border around your
+  precious contents so none will be cut off by a printer.
+
+  Warning! Do not use margin, it won't do anything. Padding
+  is the way to go. And you should use different values here.
+
+  Setting font-sizes in pt instead of px is perfectly acceptable
+  in this environment. Also, as seen here, we can use 'cm' for
+  centimeters or (in a non-metric world) 'in' for inches.
+*/
+@page {
+  padding: 1.5cm; /* that value worked best for me on german printers */
+}
+
+/*
+  Something that should be tested for future development of print
+  stylesheets...
+
+  We have the support sooner or later and then we could really make
+  huge savings on ink for people who are interested in printing our
+  pages.
+*/
+html {
+  filter: grayscale(100%);
+}
+
+/*
+  Until filter is widely supported:
+
+  I hate !important with a passion. If I find an !important in a
+  stylesheet I tend to contact the person to blame and blame her or him.
+  Not always but sometimes. Same goes with the *-selector.
+
+  There is one thing though with print, where I, myself, am using
+  those horrible things. In combination even.
+
+  In order to safe people some ink when printing our pages, we can
+  provide some different text color apart from BLACK. Thereby
+  the black unicornblood does not need to be spilled completely in
+  order to print out one of our pages/websites.
+
+  Optional, in order to overwrite specificity in a different way,
+  you could add an ID for print on your HTML element and then use
+  that for the selector.
+
+  One ID = 255 classes!
+  http://codepen.io/chriscoyier/pen/lzjqh
+*/
+* {
+  color: #444 !important;
+}
+
+/*
+  As we are talking print, we can also take a few things people
+  did when creating print layout templates for newspapers, books
+  and all that "oldschool" stuff (I love books and printing and have
+  learned a lot about it during my apprenticeship!).
+
+  Here we have something called orphans and widows. You will want to
+  use that in order to prevent those people in your print layout! ALWAYS!
+
+  More on that subject:
+  http://en.wikipedia.org/wiki/Widows_and_orphans
+
+  The German name for widow is much much much more unfriendly.
+  You should not look it up! No! You shouldn't.
+  http://de.wikipedia.org/wiki/Hurenkind_und_Schusterjunge
+
+  *cough*
+*/
+@media print {
+  heading,
+  paragraphs {
+    orphans: 3;
+    widows: 3;
+  }
+}
+
+/*
+  Images should not be printed half on one page and the rest on the
+  next page, right? Not a good UX. No no no no no!
+
+  Here is a solution.
+*/
+img {
+  page-break-before: auto;
+  page-break-after: auto;
+  page-break-inside: avoid;
+}
+
+/*
+  You can do the same with headings and/or blockquotes
+  and/or code examples.
+
+  The first rule prevents widows, the second rule
+  prevents breaks in a code example or blockquote.
+*/
+h2,
+h3 {
+  page-break-after: avoid;
+}
+
+pre,
+blockquote {
+  page-break-inside: avoid;
+}
