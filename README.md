@@ -35,6 +35,14 @@ Nope. Yes. Nope. Yes. But nope... this is really not about normalizing browsers 
 
 If it is in no way useful for you, that's cool. =)
 
+## Preprocessors, use 'em
+
+I already do and opted for LESS. Why not SASS/SCSS or Stylues? Honestly speaking, it could be any of those but LESS was my first looooove and it will be my last (currently). So, that being said, I also included a mixin or two I like and some other stuff I'm always doing with LESS.
+
+**Sidenote:** Recently, a lot of buzz is about postprocessing your CSS instead of preprocessing it with other languages like LESS or Sass or Stylus or what your favorite language for preprocessing might be. The issue raised is about the level of abstraction being introduced between the stylesheet and that what you're writing in your prepro-language. Tendency is to be very far away from the production code (which could result in major issues later on like bloated stylesheets or empty selectors or whatnot).
+
+To me that is not an issue as long as one tends to use very little variables and almost no mixins in their LESS files. So what I'm writing is still quite close to "the real thing". I just use a few conveniences like indentation and color-variables but at the same time I'm trying to keep the level of abstraction very small. That way I won't bloat stylesheets or forget how CSS works.
+
 ## License (as if I needed one, heh)
 
 Licensed under the terms of the WTFPL (Do What the Fuck You Want to Public License).

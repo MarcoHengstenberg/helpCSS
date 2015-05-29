@@ -67,6 +67,10 @@ html {
 /*
   That one is entirely optional from what I can see but
   one can never be too sure, right?
+
+  Why overflow-y: scroll? This ensures that the scrollbar always
+  appears hence you do not have to experience jumps. Also mobile
+  browsers won't have to adjust your page font.
 */
 html {
   overflow-y: scroll;
@@ -92,6 +96,7 @@ img {
   border: 0;
 
   max-width: 100%;
+  height: auto; /* for safety reasons */
 }
 
 /*
@@ -111,11 +116,17 @@ figure {
   my inputs.
   Yeah, true that. Most browser makers have a reason to make inputs behave.
   Yet, sometimes some things go out of hand...
+
+  Why line-height should go without units:
+  https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
 */
 input {
   -webkit-appearance: none; /* you want a search icon in your search? */
-  line-height: normal; /* mandatory for a better cross-browser consistency */
+
+  line-height: VALUE; /* set any value you like. preferably one without a unit */
+
   margin: 0; /* could be taken care of in our reset */
+
   border-radius: 0; /* overwriting Firefox on Android 2.3 */
 }
 
@@ -131,15 +142,16 @@ input:active {
 }
 
 /*
-  Getting rid of the extra 2px padding for submit
-  buttons and inputs in Firefox 4+.
-
-  Whoever thought that was fun to implement... Òó grmlhmpfargh
+  Want to check HTML5 inputs for their validity CSS-wise?
+  No problem, here you go.
 */
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
+input:valid,
+textarea:valid {
+  attribute: value;
+}
+input:invalid,
+textarea:invalid {
+  attribute: value;
 }
 
 /*
@@ -200,6 +212,8 @@ textarea {
   May be you are into SVG. If you are in love with this wonderful
   way of putting nice graphics and illustrations on your website
   in a scalable and never breaking fashion, then be my guest.
+
+
 */
 svg:not(:root) {
   overflow: hidden;
@@ -220,6 +234,15 @@ svg:not(:root) {
   text-shadow: none;
 }
 
+/*
+  Remove inner padding and search cancel button in Safari 5 and
+  Chrome on OS X.
+*/
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
 
 /******************************/
 /* Chapter 2                  */
@@ -228,14 +251,18 @@ svg:not(:root) {
 /******************************/
 
 /*
-  For IE10, you can use the following CSS to disable
+  For IE10 and 11, you can use the following CSS to disable
   double-tap-to-zoom on certain elements (like links and buttons)
   as described in this MSDN blog post:
 
   http://blogs.msdn.com/b/askie/archive/2013/01/06/how-to-implement-the-ms-touch-action-none-property-to-disable-double-tap-zoom-on-touch-devices.aspx
+
+  This comes especially handy when you want to get rid of the
+  tap delay on mobile devices with MobileIE.
 */
 .diable-doubletapzoom {
-  -ms-touch-action: none
+  -ms-touch-action: none; /* IE10 */
+  touch-action: none; /* IE11 */
 }
 
 /*
@@ -259,6 +286,7 @@ svg:not(:root) {
 */
 canvas {
   -ms-touch-action: double-tap-zoom;
+  touch-action: double-tap-zoom;
 }
 
 
@@ -273,6 +301,9 @@ canvas {
   you can define one for your project – keep in mind to make it
   an RGBA color with a little transparency so the text won't
   become unreadable after the tap.
+
+  This also has an effect on old Android (2.3). I know because
+  I still own one of those.
 */
 a:link {
   -webkit-tap-highlight-color: rgba(v, x, y, .z);
@@ -283,6 +314,18 @@ a:link {
 /*                            */
 /* Firefox                    */
 /******************************/
+
+/*
+  Getting rid of the extra 2px padding for submit
+  buttons and inputs in Firefox 4+.
+
+  Whoever thought that was fun to implement... Òó grmlhmpfargh
+*/
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
 
 /*
   Highlighting required fields in Firefox can be tinkered
@@ -341,10 +384,10 @@ html {
 
   I hate !important with a passion. If I find an !important in a
   stylesheet I tend to contact the person to blame and blame her or him.
-  Not always but sometimes. Same goes with the *-selector.
+  Not always but sometimes.
 
   There is one thing though with print, where I, myself, am using
-  those horrible things. In combination even.
+  this horrible thing.
 
   In order to safe people some ink when printing our pages, we can
   provide some different text color apart from BLACK. Thereby
@@ -376,13 +419,14 @@ html {
 
   The German name for widow is much much much more unfriendly.
   You should not look it up! No! You shouldn't.
-  http://de.wikipedia.org/wiki/Hurenkind_und_Schusterjunge
 
+  *cough*
+  http://de.wikipedia.org/wiki/Hurenkind_und_Schusterjunge
   *cough*
 */
 @media print {
-  heading,
-  paragraphs {
+  h1, h2, h3, h4, h5, h6,
+  p {
     orphans: 3;
     widows: 3;
   }
@@ -416,3 +460,60 @@ pre,
 blockquote {
   page-break-inside: avoid;
 }
+
+/******************************/
+/* Chapter 6                  */
+/*                            */
+/* Preprocessors (LESS)       */
+/******************************/
+
+/*
+  A mixin for complete font-families with fallbacks, weights
+  and font-style. Later in your fontsetting.less file or
+  whatever you name it, you only need a .font-family
+*/
+.font-family(@font-family: "Font Family", @font-weight: weight, @font-style: style) {
+  font-family: @font-family, your, wonderful, fallback, fonts, go, here;
+  font-style: @font-style;
+  font-weight: @font-weight;
+}
+.font-family-bold() {
+  .font-family('Font Family', 700);
+}
+.font-family-italic() {
+  .font-family('Font Family', italic);
+}
+/* let's cover it although (most of the time) it's ugly */
+.font-family-bold-italic() {
+  .font-family('Font Family', 700, italic);
+}
+
+/*
+  The golden ratio is something beautiful, isn't it?
+  In order to support this wonderful design-rule I
+  always create myself some variables. Here they are.
+
+  I will never have to remember those ugly numbers.
+  I know there are worse than that but ... yeah, I'm
+  pretty bad at math and numbers are kinda math. Right?!
+*/
+@1: 1em;
+@gold: 1.618em;
+@2xgold: 2.618em;
+@halfgold: .618em;
+
+/*
+  So, while we are all tidy people here and are using
+  LESS or any other preprocessor, we should have some
+  kind of order in our files and folders. Here's what
+  I'm always doing, when importing files I want to use
+  in more than one CSS file.
+
+  Keeping variables and mixins separated from your
+  other less-files is great because you can use them
+  not only for the main stylesheet but also for an
+  above-the-fold stylesheet (or as others like to say:
+  the critical CSS part) AND the print stylesheet.
+*/
+@import "../mixins-and-variables/variables.less";
+@import "../mixins-and-variables/mixins.less";
