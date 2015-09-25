@@ -157,11 +157,26 @@ textarea:invalid {
 /*
   You are able to define the way your placeholder in input
   fields is displayed by the way.
+
+  When using color make sure to set opacity to something
+  high to maintain a certain contrast ratio.
 */
 ::placeholder {
   text-transform: uppercase;
 
   color: whatever;
+  opacity: 1;
+}
+
+/*
+  I don't know if this is a good way to do it but you can
+  point out required fields by changing the color of the
+  text. Or anything really.
+*/
+:required::placeholder,
+:required::placeholder {
+  color: #009098;
+  opacity: 1;
 }
 
 /*
