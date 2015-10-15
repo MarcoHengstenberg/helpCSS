@@ -56,12 +56,43 @@
   of you didn't. Microsoft (windows mobile) and Apple
   (iOS) are changing the size of your text on your
   website.
+
   I can hear you asking:"Whoa, holy typography, why?"
   but I don't have an answer, I only have a fix for you.
 */
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+}
+
+/*
+  While I'm talking about fonts and stuff.
+
+  Here's how to tell browsers to optimize the rendering
+  of text. With the following CSS you're telling the
+  browsers to render text with a focus on quality and not
+  speed (e.g. Ligatures enabled).
+
+  The second attribute-value combination is furtherly
+  enhancing the quality of text and interestingly enough
+  you could even use it with ::-moz-placeholder.
+
+  Both attributes with their related values optimize the
+  reading experience on websites.
+
+  More:
+  https://developer.mozilla.org/en/docs/Web/CSS/text-rendering
+  https://developer.mozilla.org/en/docs/Web/CSS/font-feature-settings
+
+  Support tho:
+  http://caniuse.com/#feat=kerning-pairs-ligatures
+  http://caniuse.com/#feat=font-feature
+
+  IIIIIIIIEEEEEEEEEE *shakes fist towards the sky
+*/
+html {
+  text-rendering: optimizelegibility;
+  font-feature-settings: "liga", "kern";
 }
 
 /*
@@ -355,6 +386,18 @@ input::-moz-focus-inner {
 }
 :not(output):-moz-ui-invalid:-moz-focusring {
   box-shadow: values rgba(v, x, y, z);
+}
+
+/*
+  In case you are a big fan of how Chrome and Safari and
+  Opera are rendering text, you can tell Firefox to do so
+  as well with the following CSS.
+
+  This will tell all Firefox on Mac OSX to render text just
+  like his brothers-from-other-mothers.
+*/
+html {
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /******************************/
