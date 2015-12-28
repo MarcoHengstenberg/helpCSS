@@ -289,27 +289,21 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
+/*
+  Remove tap-delay on most mobile browsers.
+  Most meaning all but iOS Safari up until version 9.
+*/
+a, button, input, select, textarea, label, summary {
+  -ms-touch-action: manipulation; /* IE10 */
+  touch-action: manipulation; /* IE11 and Edge */
+}
+
 
 /******************************/
 /* Chapter 2                  */
 /*                            */
 /* IE related stuff           */
 /******************************/
-
-/*
-  For IE10 and 11, you can use the following CSS to disable
-  double-tap-to-zoom on certain elements (like links and buttons)
-  as described in this MSDN blog post:
-
-  http://blogs.msdn.com/b/askie/archive/2013/01/06/how-to-implement-the-ms-touch-action-none-property-to-disable-double-tap-zoom-on-touch-devices.aspx
-
-  This comes especially handy when you want to get rid of the
-  tap delay on mobile devices with MobileIE.
-*/
-.diable-doubletapzoom {
-  -ms-touch-action: none; /* IE10 */
-  touch-action: none; /* IE11 */
-}
 
 /*
   IE is always having a private party and YOU are not invited.
