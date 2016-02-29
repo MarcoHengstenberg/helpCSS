@@ -184,6 +184,12 @@ input:invalid,
 textarea:invalid {
   attribute: value;
 }
+/*
+  Or do this instead – slightly refining it helps I guess
+*/
+form:valid * {
+  color: green;
+}
 
 /*
   You are able to define the way your placeholder in input
@@ -197,6 +203,14 @@ textarea:invalid {
 
   color: whatever;
   opacity: 1;
+  transition : opacity .5s .5s ease;
+}
+
+/*
+  On focus we remove the placeholder
+*/
+[placeholder]:focus::-webkit-input-placeholder {
+  opacity : 0;
 }
 
 /*
